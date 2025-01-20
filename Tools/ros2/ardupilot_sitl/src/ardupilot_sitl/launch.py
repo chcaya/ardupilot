@@ -291,6 +291,7 @@ class MAVProxyLaunch:
         sitl = LaunchConfiguration("sitl").perform(context)
         console = LaunchConfiguration("console").perform(context)
         map = LaunchConfiguration("map").perform(context)
+        streamrate = LaunchConfiguration("streamrate").perform(context)
 
         # Display launch arguments.
         print(f"command:          {command}")
@@ -299,6 +300,7 @@ class MAVProxyLaunch:
         print(f"out:              {out}")
         print(f"console:          {console}")
         print(f"map:              {map}")
+        print(f"streamrate:       {streamrate}")
 
         cmd = [
             f"{command} ",
@@ -315,6 +317,9 @@ class MAVProxyLaunch:
 
         if map == TRUE_STRING:
             cmd.append("--map ")
+
+        if streamrate == TRUE_STRING:
+            cmd.append(f"--streamrate {streamrate}")
 
         # Create action.
         mavproxy_process = ExecuteProcess(
