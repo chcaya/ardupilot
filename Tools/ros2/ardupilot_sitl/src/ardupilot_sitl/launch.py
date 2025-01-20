@@ -33,6 +33,7 @@ from .actions import ExecuteFunction
 
 TRUE_STRING = "True"
 FALSE_STRING = "False"
+EMPTY_STRING = ""
 BOOL_STRING_CHOICES = set([TRUE_STRING, FALSE_STRING])
 
 class VirtualPortsLaunch:
@@ -273,6 +274,11 @@ class MicroRosAgentLaunch:
                 default_value="",
                 description="Set the device.",
             ),
+            DeclareLaunchArgument(
+                "streamrate",
+                default_value="",
+                description="Set the streamrate.",
+            ),
         ]
 
 
@@ -291,6 +297,7 @@ class MAVProxyLaunch:
         sitl = LaunchConfiguration("sitl").perform(context)
         console = LaunchConfiguration("console").perform(context)
         map = LaunchConfiguration("map").perform(context)
+        baudrate = LaunchConfiguration("baudrate").perform(context)
         streamrate = LaunchConfiguration("streamrate").perform(context)
 
         # Display launch arguments.
@@ -300,7 +307,7 @@ class MAVProxyLaunch:
         print(f"out:              {out}")
         print(f"console:          {console}")
         print(f"map:              {map}")
-        print(f"streamrate:       {streamrate}")
+        print(f"baudrate:         {baudrate}")
 
         cmd = [
             f"{command} ",
@@ -309,6 +316,7 @@ class MAVProxyLaunch:
             "127.0.0.1:14551 ",
             f"--master {master} ",
             f"--sitl {sitl} ",
+            f"--baudrate {baudrate}"
             "--non-interactive ",
         ]
 
@@ -318,7 +326,8 @@ class MAVProxyLaunch:
         if map == TRUE_STRING:
             cmd.append("--map ")
 
-        if streamrate == TRUE_STRING:
+        if streamrate is not EMPTY_STRING:
+            print(f"streamrate:       {streamrate}")
             cmd.append(f"--streamrate {streamrate}")
 
         # Create action.
