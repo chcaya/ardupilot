@@ -297,7 +297,6 @@ class MAVProxyLaunch:
         sitl = LaunchConfiguration("sitl").perform(context)
         console = LaunchConfiguration("console").perform(context)
         map = LaunchConfiguration("map").perform(context)
-        baudrate = LaunchConfiguration("baudrate").perform(context)
         streamrate = LaunchConfiguration("streamrate").perform(context)
 
         # Display launch arguments.
@@ -307,7 +306,6 @@ class MAVProxyLaunch:
         print(f"out:              {out}")
         print(f"console:          {console}")
         print(f"map:              {map}")
-        print(f"baudrate:         {baudrate}")
 
         cmd = [
             f"{command} ",
