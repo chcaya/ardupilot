@@ -316,7 +316,7 @@ class MAVProxyLaunch:
             "127.0.0.1:14551 ",
             f"--master {master} ",
             f"--sitl {sitl} ",
-            f"--baudrate {baudrate}"
+            f"--baudrate {baudrate}",
             "--non-interactive ",
         ]
 
